@@ -1,26 +1,61 @@
-var swiper = new Swiper(".swiper", {
-    loop: true,
-    grabCursor: true,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-    },
-    breakpoints: {
-        640: {
-            slidesPerView: 1,
-            spaceBetween: 18
-        },
-        768: {
-            slidesPerView: 2,
-            spaceBetween: 18
-        },
-        1188: {
-            slidesPerView: 3,
-            spaceBetween: 24
-        }
-    }
+const wrapper = document.getElementById("swiper-wrapper");
+
+function createProductHTML() {
+  return `
+    <div class="product-item">
+      <div class="product-img">
+        <img src="src/images/imgCarrosel.png" alt="Imagem Demonstrativa" />
+      </div>
+      <div class="product-info">
+        <div class="price-discount-line">
+          <div class="prices">
+            <p class="old-price">R$ 100,00</p>
+            <p class="new-price">R$79,90</p>
+          </div>
+          <div class="discount">
+            <p>10% off</p>
+          </div>
+        </div>
+        <div class="installments">
+          <p>Ou em até 10x de R$ 7,90</p>
+        </div>
+      </div>
+      <div class="div-button-buy">
+        <button class="button-buy">Comprar</button>
+      </div>
+    </div>
+  `;
+}
+
+const totalSlides = 3;
+const productsPerSlide = 5;
+
+for (let i = 0; i < totalSlides; i++) {
+  const slide = document.createElement("div");
+  slide.className = "swiper-slide";
+
+  const group = document.createElement("div");
+  group.className = "product-group"; // Vai segurar os 5 produtos lado a lado
+
+  for (let j = 0; j < productsPerSlide; j++) {
+    group.innerHTML += createProductHTML();
+  }
+
+  slide.appendChild(group);
+  wrapper.appendChild(slide);
+}
+
+const swiper = new Swiper(".swiper", {
+  loop: true,
+  grabCursor: true,
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  slidesPerView: 1, // Mostra 1 grupo por vez
+  spaceBetween: 16,
 });
